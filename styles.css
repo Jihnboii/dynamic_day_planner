@@ -1,0 +1,59 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    padding: 0;
+}
+
+h1 {
+    text-align: center;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Add gap between divs */
+    margin-top: 20px;
+}
+
+/* User Input Section */
+.input-container {
+    flex: 1; /* Equal to output container */
+    min-width: 300px;
+    max-width: 600px;
+}
+
+/* AI Output Section */
+.output-container {
+    flex: 1;
+    min-width: 300px;
+    max-width: 600px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 8px;
+    overflow-wrap: break-word;
+}
+
+#aiResponse {
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
+#loadingIndicator {
+    font-weight: bold;
+    color: #007bff; /* Blue for the loading text */
+    margin-bottom: 10px;
+}
+
+#result {
+    white-space: pre-line; /* Preserve line breaks in the AI-generated plan */
+    margin-top: 15px;
+}
+
+/* Responsive Design for Small Screens */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column; /* Stacks the divs on smaller screens */
+    }
+}

@@ -4,51 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dynamic Day Planner</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <h1>Dynamic Day Planner</h1>
 
-    <form id="dayPlannerForm">
-        <label for="currentTime">Current Time:</label><br>
-        <input type="text" id="currentTime" name="current_time" placeholder="e.g., 8:00 AM"><br><br>
+    <div class="container">
+        <!-- User Input Section -->
+        <div class="input-container">
+            <form id="dayPlannerForm">
+                <label for="currentTime">Current Time:</label><br>
+                <input type="text" id="currentTime" name="current_time" placeholder="e.g., 8:00 AM"><br><br>
 
-        <label for="tasks">Tasks (comma-separated):</label><br>
-        <input type="text" id="tasks" name="tasks" placeholder="e.g., Task 1, Task 2"><br><br>
+                <label for="tasks">Tasks (comma-separated):</label><br>
+                <input type="text" id="tasks" name="tasks" placeholder="e.g., Task 1, Task 2"><br><br>
 
-        <label for="bedtime">Bedtime:</label><br>
-        <input type="text" id="bedtime" name="bedtime" placeholder="e.g., 10:00 PM"><br><br>
+                <label for="bedtime">Bedtime:</label><br>
+                <input type="text" id="bedtime" name="bedtime" placeholder="e.g., 10:00 PM"><br><br>
 
-        <button type="submit">Generate Plan</button>
-    </form>
+                <button type="submit">Generate Plan</button>
+            </form>
+        </div>
 
-    <h2>Generated Plan:</h2>
-    <div id="result"></div>
+        <!-- AI Output Section -->
+        <div class="output-container">
+            <h2>Generated Plan:</h2>
+            <div id="aiResponse"></div>
+            <div id="loadingIndicator"></div>
+            <div id="result"></div>
+        </div>
+    </div>
 
-    <script>
-        document.getElementById("dayPlannerForm").addEventListener("submit", async function(event) {
-            event.preventDefault(); // Prevent form submission
-
-            // Get form values
-            const currentTime = document.getElementById("currentTime").value;
-            const tasks = document.getElementById("tasks").value.split(",").map(task => task.trim());
-            const bedtime = document.getElementById("bedtime").value;
-
-            // Call the Flask API
-            const response = await fetch("http://127.0.0.1:5000/plan", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    current_time: currentTime,
-                    tasks: tasks,
-                    bedtime: bedtime
-                })
-            });
-
-            const data = await response.json();
-
-            // Display the generated plan
-            document.getElementById("result").innerText = data.day_plan;
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
