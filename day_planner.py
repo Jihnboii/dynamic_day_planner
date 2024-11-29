@@ -13,22 +13,28 @@ client = OpenAI(api_key=api_key)
 
 
 def generate_day_plan(current_time, tasks, bedtime):
-    # Construct the dynamic prompt
+    """Generates the detailed schedule in a specific format."""
     prompt = f"""
     The time is {current_time}. I have {', '.join(tasks)} to do today, and I'd like to be in bed by {bedtime}.
-    Assist in planning my day dynamically with breaks and self-care activities.
-    """
+    Assist in planning my day dynamically with breaks and self-care activities. Follow this exact format:
 
-    # Generate a completion
+    Here is your schedule:
+
+    00:00 AM/PM - 00:00 AM/PM: Task
+    00:00 AM/PM - 00:00 AM/PM: Task
+    00:00 AM/PM - 00:00 AM/PM: Task
+    ...
+    00:00 AM/PM - 00:00 AM/PM: Task
+
+    Notes: [Include concise notes about the schedule, such as adjustments or reminders].
+    """
     completion = client.chat.completions.create(
         model="gpt-4",
         messages=[
-            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "system", "content": "You are a helpful assistant that creates schedules following precise formats."},
             {"role": "user", "content": prompt},
         ],
     )
-
-    # Return the generated day plan
     return completion.choices[0].message.content
 
 

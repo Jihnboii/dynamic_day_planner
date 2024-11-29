@@ -1,59 +1,194 @@
 /* General Styles */
 body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
+    font-family: 'OCR A Std', monospace; /* OCR A Std for a tech-inspired look */
+    margin: 0;
     padding: 0;
+    background-color: #ADD8E6; /* Light Blue Background */
+    color: #FFFFFF; /* White Text for Contrast */
 }
 
 h1 {
     text-align: center;
+    margin-top: 20px;
+    color: #1E90FF; /* Darker Blue for the Title */
+    font-size: 2.5rem; /* Larger Title */
 }
 
+/* Container Styling */
 .container {
     display: flex;
-    flex-wrap: wrap;
-    gap: 20px; /* Add gap between divs */
-    margin-top: 20px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 20px auto;
+    max-width: 1200px;
+    gap: 20px;
+    padding: 20px;
 }
 
 /* User Input Section */
 .input-container {
-    flex: 1; /* Equal to output container */
-    min-width: 300px;
-    max-width: 600px;
-}
-
-/* AI Output Section */
-.output-container {
     flex: 1;
-    min-width: 300px;
-    max-width: 600px;
-    background-color: #f9f9f9;
-    border: 1px solid #ccc;
-    padding: 15px;
+    background: #1E90FF; /* Dark Blue Background for Containers */
+    padding: 20px;
     border-radius: 8px;
-    overflow-wrap: break-word;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #0056B3; /* Slightly Darker Blue Border */
 }
 
-#aiResponse {
-    font-style: italic;
-    margin-bottom: 10px;
+.input-container form {
+    display: flex;
+    flex-direction: column;
 }
 
-#loadingIndicator {
+.input-container label {
+    font-size: 16px;
     font-weight: bold;
-    color: #007bff; /* Blue for the loading text */
+    margin-bottom: 5px;
+    color: #FFFFFF; /* White Text */
+}
+
+.input-container input,
+.input-container button {
+    width: 100%; /* Ensures full width */
+    box-sizing: border-box; /* Includes padding and border in width calculation */
+}
+
+.input-container input {
+    font-size: 14px;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #87CEEB; /* Lighter Blue Border */
+    border-radius: 4px;
+    background-color: #F0F8FF; /* Very Light Blue */
+    color: #333; /* Neutral Text */
+    font-family: 'OCR A Std', monospace; /* Consistent Font */
+}
+
+.input-container textarea {
+    font-family: 'OCR A Std', monospace;
+    font-size: 14px;
+    padding: 10px;
+    border: 1px solid #87CEEB; /* Lighter blue border */
+    border-radius: 4px;
+    background-color: #F0F8FF; /* Very light blue */
+    color: #333; /* Neutral text color */
+    resize: none; /* Prevent manual resizing */
+    width: 100%; /* Make it stretch to the container */
+    height: 100%; /* Make it grow with the container */
+    box-sizing: border-box; /* Ensure padding is included in width/height */
+}
+
+.input-container button {
+    font-size: 14px;
+    background-color: #0056B3; /* Darker Blue Button */
+    color: #FFFFFF; /* White Text */
+    border: none;
+    border-radius: 4px;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-family: 'OCR A Std', monospace; /* Consistent Font */
+}
+
+.input-container button:hover {
+    background-color: #003f7d; /* Even Darker Blue for Hover */
+}
+
+#adjustments-section {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    gap: 15px; /* Add vertical spacing between items */
+    align-items: stretch; /* Ensure all elements fill the width of the container */
+}
+
+#adjustments {
+    font-family: 'OCR A Std', monospace;
+    font-size: 14px;
+    padding: 10px;
+    border: 1px solid #87CEEB; /* Lighter blue border */
+    border-radius: 4px;
+    background-color: #F0F8FF; /* Very light blue */
+    color: #333; /* Neutral text color */
+    resize: none; /* Prevent manual resizing */
+    width: 100%; /* Make it stretch to the container */
+    box-sizing: border-box; /* Ensure padding is included in width/height */
+}
+
+#adjustmentsButton {
+    width: 100%; /* Full width of the container */
+    padding: 10px;
+    font-size: 14px;
+    font-family: 'OCR A Std', monospace;
+    background-color: #0056B3; /* Darker Blue Button */
+    color: #FFFFFF; /* White text */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-bottom: 10px; /* Add spacing below the first button */
+}
+
+#resetButton {
+    width: 100%; /* Full width of the container */
+    padding: 10px;
+    font-size: 14px;
+    font-family: 'OCR A Std', monospace;
+    background-color: #0056B3; /* Darker Blue Button */
+    color: #FFFFFF; /* White text */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#adjustmentsButton:hover,
+#resetButton:hover {
+    background-color: #003f7d; /* Even darker blue on hover */
+}
+
+/* Output Section */
+.output-container {
+    flex: 2;
+    background: #1E90FF; /* Dark Blue Background for Containers */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #0056B3; /* Slightly Darker Blue Border */
+}
+
+.output-container h2 {
     margin-bottom: 10px;
+    color: #FFFFFF; /* White Text */
 }
 
-#result {
-    white-space: pre-line; /* Preserve line breaks in the AI-generated plan */
-    margin-top: 15px;
+#result,
+#aiResponse {
+    font-size: 14px;
+    line-height: 1.6;
+    margin-top: 10px;
+    white-space: pre-wrap;
+    color: #FFFFFF; /* White Text for Readability */
+    font-family: 'OCR A Std', monospace; /* Consistent Font */
 }
 
-/* Responsive Design for Small Screens */
+/* Buttons */
+button {
+    font-family: 'OCR A Std', monospace;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
     .container {
-        flex-direction: column; /* Stacks the divs on smaller screens */
+        flex-direction: column;
+        padding: 10px;
+    }
+
+    .input-container,
+    .output-container {
+        flex: unset;
+        width: 100%;
     }
 }
