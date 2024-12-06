@@ -1,18 +1,18 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 from dotenv import load_dotenv
 import os
-from openai import OpenAI
+import openai
 
 # Load environment variables
 load_dotenv()
 api_key = os.getenv("OPENAI_API_KEY")
 
 # Initialize OpenAI client
-client = OpenAI(api_key=api_key)
+openai.api_key = api_key
 
 # Initialize Flask app and enable CORS
-app = Flask(__name__)
+app = Flask(__name__, template_folder="templates", static_folder="static")
 CORS(app)
 
 def generate_affirmation(current_time, tasks, bedtime):
@@ -20,14 +20,14 @@ def generate_affirmation(current_time, tasks, bedtime):
     The time is {current_time}. I have {', '.join(tasks)} to do today, and I'd like to be in bed by {bedtime}.
     Provide a short, affirmative message acknowledging my goals and offering encouragement.
     """
-    completion = client.chat.completions.create(
+    completion = openai.ChatCompletion.create(
         model="gpt-4",
         messages=[
             {"role": "system", "content": "You are a helpful assistant."},
             {"role": "user", "content": prompt},
         ],
     )
-    return completion.choices[0].message.content.strip()
+    return completion.choices[0].message["content"].strip()
 
 
 def generate_day_plan(current_time, tasks, bedtime):
@@ -38,25 +38,24 @@ def generate_day_plan(current_time, tasks, bedtime):
 
     Here is your schedule:
 
-    00:00 AM/PM - 00:00 AM/PM: 
-    
-    00:00 AM/PM - 00:00 AM/PM: 
-    
-    00:00 AM/PM - 00:00 AM/PM: 
+    00:00 AM/PM - 00:00 AM/PM: Task
     ...
-    00:00 AM/PM - 00:00 AM/PM: 
-
     Notes: Include one to two notes about the schedule, such as adjustments or reminders.
     """
-    completion = client.chat.completions.create(
+    completion = openai.ChatCompletion.create(
         model="gpt-4",
         messages=[
-            {"role": "system",
-             "content": "You are a helpful assistant that creates schedules following precise formats."},
+            {"role": "system", "content": "You are a helpful assistant that creates schedules following precise formats."},
             {"role": "user", "content": prompt},
         ],
     )
-    return completion.choices[0].message.content.strip()
+    return completion.choices[0].message["content"].strip()
+
+
+@app.route("/")
+def home():
+    """Route to serve the homepage."""
+    return render_template("index.html")
 
 
 @app.route('/adjustments', methods=['POST'])
@@ -78,14 +77,14 @@ def generate_adjustments():
     ...
     Notes: [Include concise notes if necessary].
     """
-    completion = client.chat.completions.create(
+    completion = openai.ChatCompletion.create(
         model="gpt-4",
         messages=[
             {"role": "system", "content": "You are a helpful assistant that follows formatting guidelines strictly."},
             {"role": "user", "content": prompt},
         ],
     )
-    adjusted_schedule = completion.choices[0].message.content.strip()
+    adjusted_schedule = completion.choices[0].message["content"].strip()
     return jsonify({"adjusted_schedule": adjusted_schedule})
 
 
@@ -115,4 +114,3 @@ def generate_schedule():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
-
