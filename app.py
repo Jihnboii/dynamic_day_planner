@@ -15,7 +15,6 @@ client = OpenAI(api_key=api_key)
 app = Flask(__name__)
 CORS(app)
 
-
 def generate_affirmation(current_time, tasks, bedtime):
     prompt = f"""
     The time is {current_time}. I have {', '.join(tasks)} to do today, and I'd like to be in bed by {bedtime}.
@@ -115,4 +114,5 @@ def generate_schedule():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+

@@ -41,7 +41,7 @@ document.getElementById("dayPlannerForm").addEventListener("submit", async funct
 
     try {
         // === SECOND AI CALL: Generate the schedule ===
-        const scheduleResponse = await fetch("http://127.0.0.1:5000/schedule", {
+        const scheduleResponse = await fetch("https://dynamic-day-planner.onrender.com/schedule", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -113,7 +113,7 @@ document.getElementById("adjustmentsButton").addEventListener("click", async fun
     }, 500);
 
     try {
-        const adjustmentResponse = await fetch("http://127.0.0.1:5000/adjustments", {
+        const adjustmentResponse = await fetch("https://dynamic-day-planner.onrender.com/adjustments", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
